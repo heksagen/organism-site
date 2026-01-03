@@ -20,7 +20,15 @@
                         : asset('storage/' . ltrim($hero, '/'));
                 @endphp
 
-                <img src="{{ $heroSrc }}" alt="{{ $species->common_name }}" class="w-full h-72 object-cover">
+      <img
+    src="{{ str_starts_with($species->hero_image, 'http')
+        ? $species->hero_image
+        : asset('storage/' . ltrim($species->hero_image, '/')) }}"
+    alt="{{ $species->common_name }}"
+    class="w-full h-72 object-cover"
+/>
+
+
             </div>
         @endif
 
@@ -158,7 +166,15 @@
 
                             <figure class="rounded-2xl overflow-hidden border border-green-400/10 bg-green-950/25">
                                 @if($src)
-                                    <img src="{{ $src }}" alt="{{ $img->caption ?? 'Species image' }}" class="w-full h-56 object-cover" loading="lazy">
+                                    <img
+    src="{{ str_starts_with($img->image_path ?? '', 'http')
+        ? ($img->image_path ?? '')
+        : asset('storage/' . ltrim(($img->image_path ?? ''), '/')) }}"
+    alt="{{ $img->caption ?? 'Species image' }}"
+    class="w-full h-56 object-cover"
+    loading="lazy"
+/>
+
                                 @endif
 
                                 @if($img->caption || $img->credit)
@@ -191,7 +207,15 @@
 
                         <figure class="rounded-2xl overflow-hidden border border-green-400/10 bg-green-950/25">
                             @if($src)
-                                <img src="{{ $src }}" alt="{{ $img->caption ?? 'Species image' }}" class="w-full h-56 object-cover" loading="lazy">
+                                <img
+    src="{{ str_starts_with($img->image_path ?? '', 'http')
+        ? ($img->image_path ?? '')
+        : asset('storage/' . ltrim(($img->image_path ?? ''), '/')) }}"
+    alt="{{ $img->caption ?? 'Species image' }}"
+    class="w-full h-56 object-cover"
+    loading="lazy"
+/>
+
                             @endif
 
                             @if($img->caption || $img->credit)
