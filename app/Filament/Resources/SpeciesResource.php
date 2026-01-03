@@ -44,9 +44,9 @@ class SpeciesResource extends Resource
                 ->rows(3)
                 ->columnSpanFull(),
 
-            Forms\Components\FileUpload::make('hero_image')
-    ->disk('public')
-    ->directory('species/hero')
+           Forms\Components\FileUpload::make('hero_image')
+    ->disk('public_uploads')                 // 👈 IMPORTANT
+    ->directory('uploads/species/hero')      // goes to public/uploads/species/hero
     ->visibility('public')
     ->image()
     ->imagePreviewHeight('150')
@@ -54,7 +54,6 @@ class SpeciesResource extends Resource
     ->downloadable()
     ->maxSize(5120)
     ->preserveFilenames(false),
-
 
 
             Forms\Components\Toggle::make('is_published')
