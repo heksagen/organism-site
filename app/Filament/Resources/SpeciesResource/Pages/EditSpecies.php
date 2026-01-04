@@ -16,4 +16,14 @@ class EditSpecies extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+{
+    if (isset($data['taxonomy']) && is_array($data['taxonomy'])) {
+        $data['taxonomy'] = json_encode($data['taxonomy'], JSON_UNESCAPED_UNICODE);
+    }
+
+    return $data;
+}
+
 }
