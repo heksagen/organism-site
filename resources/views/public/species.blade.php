@@ -80,6 +80,30 @@
     };
 @endphp
 
+@php
+    $italicizeOutsideParentheses = function (?string $text): string {
+        if ($text === null) return '—';
+
+        $text = trim($text);
+        if ($text === '') return '—';
+
+        $pos = mb_strpos($text, '(');
+
+        // No parentheses → italicize whole text
+        if ($pos === false) {
+            return '<em>' . e($text) . '</em>';
+        }
+
+        // Split: left part italic, right part normal
+        $left  = trim(mb_substr($text, 0, $pos));
+        $right = trim(mb_substr($text, $pos)); // includes "(" ... ")"
+
+        return '<em>' . e($left) . '</em> ' . e($right);
+    };
+@endphp
+
+
+
         @if($species->short_intro)
             <p class="mt-6 text-green-50/90 leading-relaxed">{{ $species->short_intro }}</p>
         @endif
@@ -180,12 +204,9 @@
                                 <tr class="hover:bg-green-900/20 transition">
                                     <td class="border border-green-400/15 p-2 font-medium">{{ $label }}</td>
                                     <td class="border border-green-400/15 p-2">
-    @if(in_array($label, ['Genus', 'Species'], true))
-        <em>{{ $tax[$key] ?? '—' }}</em>
-    @else
-        {{ $tax[$key] ?? '—' }}
-    @endif
+    {!! $italicizeOutsideParentheses($tax[$key] ?? null) !!}
 </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
