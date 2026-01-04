@@ -218,9 +218,8 @@
     {{ $label }}
 </td>
                                     <td class="bg-white text-black border-4 border-black px-4 py-3">
-    <span class="[&_em]:underline">
         {!! $italicizeOutsideParentheses($tax[$key] ?? null) !!}
-    </span>
+
 </td>
 
                                 </tr>
