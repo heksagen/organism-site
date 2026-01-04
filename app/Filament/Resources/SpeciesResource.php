@@ -54,7 +54,15 @@ class SpeciesResource extends Resource
     ->downloadable()
     ->maxSize(5120)
     ->preserveFilenames(false)
-    ->dehydrateStateUsing(fn ($state) => $state),
+    ->maxFiles(1)
+->dehydrateStateUsing(function ($state) {
+    if (is_array($state)) {
+        $first = reset($state);
+        return is_string($first) ? $first : null;
+    }
+    return $state;
+}),
+
 
 
 
