@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -39,4 +40,12 @@ class Species extends Model
     {
         return $this->hasMany(SpeciesReference::class)->orderBy('sort_order');
     }
+    protected function taxonomy(): Attribute
+{
+    return Attribute::make(
+        get: fn ($value) => is_string($value) ? json_decode($value, true) : $value,
+        set: fn ($value) => is_array($value) ? json_encode($value) : $value,
+    );
+}
+
 }
