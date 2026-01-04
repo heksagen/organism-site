@@ -5,7 +5,7 @@
     <a href="{{ route('home') }}" class="text-sm link">← Back to Home</a>
 
     <header class="mt-4">
-        <h1 class="text-3xl font-bold">{{ $species->common_name }}</h1>
+        <h1 class="text-3xl font-bold text-cyan-300">{{ $species->common_name }}</h1>
 
         @if($species->scientific_name)
             <p class="text-lg muted italic">{{ $species->scientific_name }}</p>
@@ -189,7 +189,7 @@
             @endphp
 
             <section id="taxonomy" class="scroll-mt-24">
-                <h2 class="text-2xl font-semibold mb-3 text-green-100">Taxonomic Classification</h2>
+                <h2 class="text-2xl font-semibold mb-3 text-cyan-300">Taxonomic Classification</h2>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
@@ -218,7 +218,7 @@
         {{-- Sections --}}
         @foreach($sections as $section)
             <section id="section-{{ $section->key }}" class="scroll-mt-24">
-                <h2 class="text-2xl font-semibold mb-3 text-green-100">{{ $section->title }}</h2>
+                <h2 class="text-2xl font-semibold mb-3 text-cyan-300">{{ $section->title }}</h2>
 
                 @if($section->content)
                     <div class="prose prose-invert max-w-none text-green-50/90 leading-relaxed">
@@ -272,7 +272,7 @@
 
         {{-- Images gallery (separate section) --}}
         <section id="images" class="scroll-mt-24">
-            <h2 class="text-2xl font-semibold mb-3 text-green-100">Images / Illustrations / Diagrams</h2>
+            <h2 class="text-2xl font-semibold mb-3 text-cyan-300">Images / Illustrations / Diagrams</h2>
 
             @if($galleryImages->count())
                 <div class="grid sm:grid-cols-2 gap-4">
@@ -314,7 +314,7 @@
 
         {{-- References --}}
         <section id="refs" class="scroll-mt-24">
-            <h2 class="text-2xl font-semibold mb-3 text-green-100">References</h2>
+            <h2 class="text-2xl font-semibold mb-3 text-cyan-300">References</h2>
 
             @if($species->references->count())
                 <ol class="list-decimal pl-6 space-y-2 text-green-50/90">
