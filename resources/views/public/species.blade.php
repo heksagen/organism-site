@@ -195,16 +195,32 @@
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr>
-                                <th class="border border-green-400/15 p-2 bg-green-950/40">Rank</th>
-                                <th class="border border-green-400/15 p-2 bg-green-950/40">Scientific Name</th>
-                            </tr>
+    <th
+        class="text-black font-bold text-center border-4 border-black px-4 py-3"
+        style="background-color:#7CFF4F;"
+    >
+        Rank
+    </th>
+
+    <th
+        class="text-black font-bold text-center border-4 border-black px-4 py-3"
+        style="background-color:#7CFF4F;"
+    >
+        Scientific Name
+    </th>
+</tr>
+
                         </thead>
                         <tbody>
                             @foreach($rows as $label => $key)
-                                <tr class="hover:bg-green-900/20 transition">
-                                    <td class="border border-green-400/15 p-2 font-medium">{{ $label }}</td>
-                                    <td class="border border-green-400/15 p-2">
-    {!! $italicizeOutsideParentheses($tax[$key] ?? null) !!}
+                                <tr class="transition hover:bg-gray-100">
+                                    <td class="bg-white text-black font-semibold text-center border-4 border-black px-4 py-3">
+    {{ $label }}
+</td>
+                                    <td class="bg-white text-black border-4 border-black px-4 py-3">
+    <span class="[&_em]:underline">
+        {!! $italicizeOutsideParentheses($tax[$key] ?? null) !!}
+    </span>
 </td>
 
                                 </tr>
