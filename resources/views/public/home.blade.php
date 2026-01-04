@@ -16,7 +16,7 @@
         $heroPath = null;
 
         if (is_array($rawHero)) {
-            $heroPath = collect($rawHero)->first();
+            $heroPath = collect($rawHero)->values()->first();
         } elseif (is_string($rawHero)) {
             $decoded = json_decode($rawHero, true);
             if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
@@ -66,7 +66,7 @@
         $heroPath = null;
 
         if (is_array($rawHero)) {
-            $heroPath = collect($rawHero)->first();
+            $heroPath = collect($rawHero)->values()->first();
         } elseif (is_string($rawHero)) {
             $decoded = json_decode($rawHero, true);
             if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
