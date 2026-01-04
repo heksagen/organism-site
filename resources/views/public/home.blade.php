@@ -11,10 +11,42 @@
         @endif
 
         @if($settings?->hero_image)
-            <div class="mt-6 rounded-xl overflow-hidden border">
-                <img src="{{ $settings->hero_image }}" alt="Hero" class="w-full h-64 object-cover">
-            </div>
-        @endif
+    @php
+        $rawHero = $settings->hero_image;
+        $heroPath = null;
+
+        if (is_array($rawHero)) {
+            $heroPath = collect($rawHero)->first();
+        } elseif (is_string($rawHero)) {
+            $decoded = json_decode($rawHero, true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                $heroPath = collect($decoded)->first();
+            } else {
+                $heroPath = $rawHero;
+            }
+        }
+
+        $heroPath = $heroPath ? ltrim($heroPath, '/') : null;
+
+        $heroSrc = null;
+        if ($heroPath) {
+            if (str_starts_with($heroPath, 'http://') || str_starts_with($heroPath, 'https://')) {
+                $heroSrc = $heroPath;
+            } elseif (str_starts_with($heroPath, 'uploads/') || str_starts_with($heroPath, 'storage/')) {
+                $heroSrc = asset($heroPath);
+            } else {
+                $heroSrc = asset('storage/' . $heroPath);
+            }
+        }
+    @endphp
+
+    @if($heroSrc)
+        <div class="mt-6 rounded-xl overflow-hidden border">
+            <img src="{{ $heroSrc }}" alt="Hero" class="w-full h-64 object-cover">
+        </div>
+    @endif
+@endif
+
 
         @if($settings?->overview_text)
             <div class="mt-6 text-green-50/90 leading-relaxed">
@@ -29,15 +61,40 @@
         @foreach($species as $sp)
             <a href="{{ route('species.show', $sp->slug) }}" class="block card rounded-2xl overflow-hidden hover:shadow-lg transition">
                 @if($sp->hero_image)
-  @php
-      $hero = $sp->hero_image;
-      $heroSrc = str_starts_with($hero, 'http')
-          ? $hero
-          : asset('storage/' . ltrim($hero, '/'));
-  @endphp
+    @php
+        $rawHero = $sp->hero_image;
+        $heroPath = null;
 
-  <img src="{{ $heroSrc }}" class="w-full h-40 object-cover" alt="{{ $sp->common_name }}">
+        if (is_array($rawHero)) {
+            $heroPath = collect($rawHero)->first();
+        } elseif (is_string($rawHero)) {
+            $decoded = json_decode($rawHero, true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                $heroPath = collect($decoded)->first();
+            } else {
+                $heroPath = $rawHero;
+            }
+        }
+
+        $heroPath = $heroPath ? ltrim($heroPath, '/') : null;
+
+        $heroSrc = null;
+        if ($heroPath) {
+            if (str_starts_with($heroPath, 'http://') || str_starts_with($heroPath, 'https://')) {
+                $heroSrc = $heroPath;
+            } elseif (str_starts_with($heroPath, 'uploads/') || str_starts_with($heroPath, 'storage/')) {
+                $heroSrc = asset($heroPath);
+            } else {
+                $heroSrc = asset('storage/' . $heroPath);
+            }
+        }
+    @endphp
+
+    @if($heroSrc)
+        <img src="{{ $heroSrc }}" class="w-full h-40 object-cover" alt="{{ $sp->common_name }}">
+    @endif
 @endif
+
 
                 <div class="p-4">
                     <div class="font-semibold">{{ $sp->common_name }}</div>
