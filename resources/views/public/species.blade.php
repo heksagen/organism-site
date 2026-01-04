@@ -11,26 +11,55 @@
             <p class="text-lg muted italic">{{ $species->scientific_name }}</p>
         @endif
 
-        @if($species->hero_image)
-            <div class="mt-6 rounded-xl overflow-hidden border border-green-400/10">
-                @php
-                    $hero = $species->hero_image;
-                    $heroSrc = str_starts_with($hero, 'http')
-                        ? $hero
-                        : asset('storage/' . ltrim($hero, '/'));
-                @endphp
+                @if($species->hero_image)
+            @php
+                $rawHero = $species->hero_image;
+                $heroPath = null;
 
-      <img
-    src="{{ str_starts_with($species->hero_image, 'http')
-        ? $species->hero_image
-        : asset('storage/' . ltrim($species->hero_image, '/')) }}"
-    alt="{{ $species->common_name }}"
-    class="w-full h-72 object-cover"
-/>
+                // If already an array, grab the first value
+                if (is_array($rawHero)) {
+                    $heroPath = collect($rawHero)->first();
+                }
+                // If it's a JSON string, decode it then grab first value
+                elseif (is_string($rawHero)) {
+                    $decoded = json_decode($rawHero, true);
 
+                    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                        $heroPath = collect($decoded)->first();
+                    } else {
+                        // fallback: treat as normal string path
+                        $heroPath = $rawHero;
+                    }
+                }
 
-            </div>
+                $heroPath = $heroPath ? ltrim($heroPath, '/') : null;
+
+                // Build final URL:
+                // - If it's already "uploads/..." or "storage/...", just asset() it
+                // - Else assume it's a storage public disk path and prefix "storage/"
+                $heroSrc = null;
+                if ($heroPath) {
+                    if (str_starts_with($heroPath, 'http://') || str_starts_with($heroPath, 'https://')) {
+                        $heroSrc = $heroPath;
+                    } elseif (str_starts_with($heroPath, 'uploads/') || str_starts_with($heroPath, 'storage/')) {
+                        $heroSrc = asset($heroPath);
+                    } else {
+                        $heroSrc = asset('storage/' . $heroPath);
+                    }
+                }
+            @endphp
+
+            @if($heroSrc)
+                <div class="mt-6 rounded-xl overflow-hidden border border-green-400/10">
+                    <img
+                        src="{{ $heroSrc }}"
+                        alt="{{ $species->common_name }}"
+                        class="w-full h-72 object-cover"
+                    />
+                </div>
+            @endif
         @endif
+
 
         @if($species->short_intro)
             <p class="mt-6 text-green-50/90 leading-relaxed">{{ $species->short_intro }}</p>
