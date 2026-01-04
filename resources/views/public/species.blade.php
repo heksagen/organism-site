@@ -60,11 +60,31 @@
             @endif
         @endif
 
+@php
+    $italicizeScientificName = function (?string $text) use ($species): string {
+        if ($text === null || $text === '') return '';
+
+        $sci = trim((string) ($species->scientific_name ?? ''));
+        // Always escape the full text first (prevents HTML injection)
+        $escapedText = e($text);
+
+        if ($sci === '') {
+            return $escapedText;
+        }
+
+        $escapedSci = e($sci);
+
+        // Replace the *escaped* scientific name with an italic HTML tag
+        // so only that exact name becomes italic, everything else stays normal.
+        return str_replace($escapedSci, '<em>' . $escapedSci . '</em>', $escapedText);
+    };
+@endphp
 
         @if($species->short_intro)
             <p class="mt-6 text-green-50/90 leading-relaxed">{{ $species->short_intro }}</p>
         @endif
     </header>
+
 
     @php
         // Exclude old taxonomy section if it exists in sections table
@@ -159,7 +179,13 @@
                             @foreach($rows as $label => $key)
                                 <tr class="hover:bg-green-900/20 transition">
                                     <td class="border border-green-400/15 p-2 font-medium">{{ $label }}</td>
-                                    <td class="border border-green-400/15 p-2">{{ $tax[$key] ?? '—' }}</td>
+                                    <td class="border border-green-400/15 p-2">
+    @if(in_array($label, ['Genus', 'Species'], true))
+        <em>{{ $tax[$key] ?? '—' }}</em>
+    @else
+        {{ $tax[$key] ?? '—' }}
+    @endif
+</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -175,7 +201,7 @@
 
                 @if($section->content)
                     <div class="prose prose-invert max-w-none text-green-50/90 leading-relaxed">
-                        {!! nl2br(e($section->content)) !!}
+                        {!! nl2br($italicizeScientificName($section->content)) !!}
                     </div>
                 @else
                     <p class="muted italic">No content yet.</p>
@@ -209,7 +235,7 @@
                                 @if($img->caption || $img->credit)
                                     <figcaption class="p-3 text-sm">
                                         @if($img->caption)
-                                            <div class="font-semibold text-green-100">{{ $img->caption }}</div>
+                                            <div class="font-semibold text-green-100">{!! $italicizeScientificName($img->caption) !!}</div>
                                         @endif
                                         @if($img->credit)
                                             <div class="muted mt-1">{{ $img->credit }}</div>
@@ -250,7 +276,7 @@
                             @if($img->caption || $img->credit)
                                 <figcaption class="p-3 text-sm">
                                     @if($img->caption)
-                                        <div class="font-semibold text-green-100">{{ $img->caption }}</div>
+                                        <div class="font-semibold text-green-100">{!! $italicizeScientificName($img->caption) !!}</div>
                                     @endif
                                     @if($img->credit)
                                         <div class="muted mt-1">{{ $img->credit }}</div>
@@ -273,7 +299,7 @@
                 <ol class="list-decimal pl-6 space-y-2 text-green-50/90">
                     @foreach($species->references as $ref)
     <li class="leading-relaxed">
-        <span>{{ $ref->citation }}</span>
+        <span>{!! $italicizeScientificName($ref->citation) !!}</span>
 
         @if(!empty($ref->link))
             <a
