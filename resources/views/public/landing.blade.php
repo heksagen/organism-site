@@ -58,6 +58,7 @@
 
 
         <p class="mt-6 text-green-200/90 leading-relaxed">
+            
     In this educational blog, the researchers have chosen these mammals native to the Philippines, specifically:
     <em>Bubalus mindorensis</em> (Tamaraw),
     <em>Rusa alfredi</em> (Philippine Spotted Deer),
