@@ -52,10 +52,25 @@
         <h2 class="text-3xl md:text-4xl font-bold text-green-100">
             Why These Five?
         </h2>
+        <h3 class="mt-2 text-lg font-semibold text-green-200/90">
+    Short Description Overview
+</h3>
+
 
         <p class="mt-6 text-green-200/90 leading-relaxed">
-            In this educational blog, the researchers have chosen these mammals native to the Philippines, specifically: Bubalus mindorensis (Tamaraw), Rusa alfredi (Philippine Spotted Deer), Sus cebifrons (Visayan Warty Pig), Carlito syrichta (Philippine Tarsier), and Manis culionensis (Palawan Pangolin). The group selected these five organisms because they represent the most globally threatened mammals in the archipelago. Based on research, they share key biological features, including low reproductive rates, specialized adaptations, and dependence on forests. They play a vital ecological role as herbivores, omnivores, insectivores, ecosystem engineers, and seed dispersers, contributing to the maintenance of forest biodiversity and ecosystem equilibrium. Many also exhibit distinctive evolutionary characteristics. Notably, they hold economic and cultural significance, but anthropogenic activities put them at high risk of extinction today.
-        </p>
+    In this educational blog, the researchers have chosen these mammals native to the Philippines, specifically:
+    <em>Bubalus mindorensis</em> (Tamaraw),
+    <em>Rusa alfredi</em> (Philippine Spotted Deer),
+    <em>Sus cebifrons</em> (Visayan Warty Pig),
+    <em>Carlito syrichta</em> (Philippine Tarsier),
+    and <em>Manis culionensis</em> (Palawan Pangolin).
+    The group selected these five organisms because they represent the most globally threatened mammals in the archipelago.
+    Based on research, they share key biological features, including low reproductive rates, specialized adaptations, and dependence on forests.
+    They play a vital ecological role as herbivores, omnivores, insectivores, ecosystem engineers, and seed dispersers, contributing to the maintenance of forest biodiversity and ecosystem equilibrium.
+    Many also exhibit distinctive evolutionary characteristics.
+    Notably, they hold economic and cultural significance, but anthropogenic activities put them at high risk of extinction today.
+</p>
+
 
         <p class="mt-4 text-green-200/80 leading-relaxed">
             This website documents their biology, ecology, and conservation status —
