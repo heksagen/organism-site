@@ -133,6 +133,287 @@
     </div>
 </section>
 
+{{-- =========================
+   Drag Parallax Image Track
+   (from cammile-morgan-website.zip)
+   ========================= --}}
+<section id="drag-track" class="relative py-20 bg-gradient-to-b from-green-950 to-green-900 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-center">
+    <div class="text-center">
+        <h2
+            data-reveal
+            class="reveal-pop text-3xl md:text-4xl font-bold text-green-100"
+            style="--reveal-delay: 0ms"
+        >
+            Explore the Five
+        </h2>
+
+        <p
+            data-reveal
+            class="reveal-pop mt-2 text-sm md:text-base text-green-300/80"
+            style="--reveal-delay: 120ms"
+        >
+            Drag left/right to scroll.
+        </p>
+    </div>
+</div>
+
+    </div>
+
+    {{-- viewport wrapper (keeps overflow hidden like the original demo) --}}
+<div
+    id="track-viewport"
+    data-reveal
+    class="reveal-pop relative mt-10 h-[60vh] overflow-hidden"
+    style="--reveal-delay: 240ms"
+>
+    <div
+        id="image-track"
+        class="absolute left-1/2 top-1/2 flex gap-[4vmin] cursor-grab active:cursor-grabbing select-none"
+        data-mouse-down-at="0"
+        data-prev-percentage="0"
+        data-percentage="0"
+        style="transform: translate(-50%, -50%);"
+    >
+       {{-- OPTION B: hardcoded landing scroll images (WITH LABELS) --}}
+
+{{-- 1: Tamaraw --}}
+<div class="relative shrink-0">
+    <img
+        class="track-image w-[30vmin] h-[46vmin] object-cover rounded-2xl border border-green-400/20 shadow-2xl shadow-black/40"
+        style="object-position: 100% 50%;"
+        src="{{ asset('images/landing/scroll/1.png') }}"
+        alt="Tamaraw"
+        draggable="false"
+    />
+    <div
+  class="pointer-events-none absolute bottom-4 left-1/2
+         -translate-x-[40%]
+         rounded-lg bg-black/55 px-4 py-1.5
+         text-green-100 backdrop-blur"
+>
+  <div class="text-sm font-medium leading-tight text-center">
+    Tamaraw
+  </div>
+  <div class="text-xs italic leading-tight text-green-200/90 text-center">
+    Bubalus mindorensis
+  </div>
+</div>
+
+</div>
+
+{{-- 2: Philippine Spotted Deer --}}
+<div class="relative shrink-0">
+    <img
+        class="track-image w-[30vmin] h-[46vmin] object-cover rounded-2xl border border-green-400/20 shadow-2xl shadow-black/40"
+        style="object-position: 100% 50%;"
+        src="{{ asset('images/landing/scroll/2.gif') }}"
+        alt="Philippine Spotted Deer"
+        draggable="false"
+    />
+    <div
+  class="pointer-events-none absolute bottom-4 left-1/2
+         -translate-x-[40%]
+         rounded-lg bg-black/55 px-4 py-1.5
+         text-green-100 backdrop-blur"
+>
+  <div class="text-sm font-medium leading-tight text-center">
+    Philippine Spotted Deer
+  </div>
+  <div class="text-xs italic leading-tight text-green-200/90 text-center">
+    Rusa alfredi
+  </div>
+</div>
+
+</div>
+
+{{-- 3: Visayan Warty Pig --}}
+<div class="relative shrink-0">
+    <img
+        class="track-image w-[30vmin] h-[46vmin] object-cover rounded-2xl border border-green-400/20 shadow-2xl shadow-black/40"
+        style="object-position: 100% 50%;"
+        src="{{ asset('images/landing/scroll/3.webp') }}"
+        alt="Visayan Warty Pig"
+        draggable="false"
+    />
+    <div
+  class="pointer-events-none absolute bottom-4 left-1/2
+         -translate-x-[40%]
+         rounded-lg bg-black/55 px-4 py-1.5
+         text-green-100 backdrop-blur"
+>
+  <div class="text-sm font-medium leading-tight text-center">
+    Visayan Warty Pig
+  </div>
+  <div class="text-xs italic leading-tight text-green-200/90 text-center">
+    Sus cebifrons
+  </div>
+</div>
+
+</div>
+
+{{-- 4: Philippine Tarsier --}}
+<div class="relative shrink-0">
+    <img
+        class="track-image w-[30vmin] h-[46vmin] object-cover rounded-2xl border border-green-400/20 shadow-2xl shadow-black/40"
+        style="object-position: 100% 50%;"
+        src="{{ asset('images/landing/scroll/4.jpg') }}"
+        alt="Philippine Tarsier"
+        draggable="false"
+    />
+    <div
+  class="pointer-events-none absolute bottom-4 left-1/2
+         -translate-x-[40%]
+         rounded-lg bg-black/55 px-4 py-1.5
+         text-green-100 backdrop-blur"
+>
+  <div class="text-sm font-medium leading-tight text-center">
+    Philippine Tarsier
+  </div>
+  <div class="text-xs italic leading-tight text-green-200/90 text-center">
+    Carlito syrichta
+  </div>
+</div>
+
+</div>
+
+{{-- 5: Palawan Pangolin --}}
+<div class="relative shrink-0">
+    <img
+        class="track-image w-[30vmin] h-[46vmin] object-cover rounded-2xl border border-green-400/20 shadow-2xl shadow-black/40"
+        style="object-position: 100% 50%;"
+        src="{{ asset('images/landing/scroll/5.jpg') }}"
+        alt="Palawan Pangolin"
+        draggable="false"
+    />
+    <div
+  class="pointer-events-none absolute bottom-4 left-1/2
+         -translate-x-[40%]
+         rounded-lg bg-black/55 px-4 py-1.5
+         text-green-100 backdrop-blur"
+>
+  <div class="text-sm font-medium leading-tight text-center">
+    Palawan Pangolin
+  </div>
+  <div class="text-xs italic leading-tight text-green-200/90 text-center">
+    Manis culionensis
+  </div>
+</div>
+
+</div>
+
+    </div>
+</div>
+
+
+    <style>
+        /* Keep it local so it won't mess other pages */
+        #drag-track .track-image { user-select: none; -webkit-user-drag: none; }
+    </style>
+
+    <script>
+        (function () {
+            const track = document.getElementById("image-track");
+            const viewport = document.getElementById("track-viewport");
+            if (!track || !viewport) return;
+        
+// ---- OPTIONAL CLAMP MODULE (LOOSE / TUNABLE, ANCHORED TO START) ----
+const clampX = (() => {
+    const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+    const EXTRA_LEFT = 750;   // allow more travel toward images 4-5
+    const EXTRA_RIGHT = -120;   // allow only a little travel "before" the start
+
+    let startPx = null;       // captured once, at first call
+
+    return (px) => {
+        // capture the "starting position" (your image-1 starting view)
+        if (startPx === null) startPx = px;
+
+        const overflow = track.scrollWidth - viewport.clientWidth;
+        if (overflow <= 0) return px;
+
+        const half = overflow / 2;
+
+        // bounds are centered around *startPx*, not around 0
+        const minPx = (startPx - half) - EXTRA_LEFT;
+        const maxPx = (startPx + half) + EXTRA_RIGHT;
+
+        return clamp(px, minPx, maxPx);
+    };
+})();
+
+
+            track.dataset.mouseDownAt ??= "0";
+            track.dataset.prevPx ??= "0";
+            track.dataset.px ??= "0";
+        
+            const apply = (nextPx) => {
+                track.dataset.px = String(nextPx);
+            
+                // Move forever. No clamp. No wrap.
+                track.animate(
+                    { transform: `translate(calc(-50% + ${nextPx}px), -50%)` },
+                    { duration: 600, fill: "forwards" }
+                );
+            
+                // Optional: keep the parallax feeling (works fine even when off-screen)
+                // This is just a "nice-to-have" mapping, not a boundary.
+                const nextPercentage = nextPx / 10; // tweak divisor to taste
+                for (const img of track.getElementsByClassName("track-image")) {
+                    img.animate(
+                        { objectPosition: `${100 + nextPercentage}% center` },
+                        { duration: 600, fill: "forwards" }
+                    );
+                }
+            };
+        
+            const onDown = (clientX) => {
+                track.dataset.mouseDownAt = String(clientX);
+            };
+        
+            const onUp = () => {
+                track.dataset.mouseDownAt = "0";
+                track.dataset.prevPx = track.dataset.px || "0";
+            };
+        
+            const onMove = (clientX) => {
+                if (track.dataset.mouseDownAt === "0") return;
+            
+                const mouseDownAt = parseFloat(track.dataset.mouseDownAt);
+                const delta = clientX - mouseDownAt; // drag right => positive px
+                const prevPx = parseFloat(track.dataset.prevPx || "0");
+            
+                // No clamp/wrap => indefinite
+                apply(clampX(prevPx + delta));
+            };
+        
+            // Mouse
+            viewport.addEventListener("mousedown", (e) => onDown(e.clientX));
+            window.addEventListener("mouseup", onUp);
+            window.addEventListener("mousemove", (e) => onMove(e.clientX));
+        
+            // Touch
+            viewport.addEventListener("touchstart", (e) => {
+                const t = e.touches[0];
+                if (t) onDown(t.clientX);
+            }, { passive: true });
+        
+            window.addEventListener("touchend", onUp, { passive: true });
+        
+            window.addEventListener("touchmove", (e) => {
+                const t = e.touches[0];
+                if (t) onMove(t.clientX);
+            }, { passive: true });
+        
+            // Start centered
+            apply(0);
+        })();
+        </script>
+
+</section>
+
 
 {{-- =========================
 MISSION + VISION (PORTAL REVEAL STYLE)

@@ -78,5 +78,25 @@
   transform: translateY(0);
 }
 
+.track {
+    display: flex;
+    gap: 4vmin;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(0%, -50%);
+    will-change: transform;
+  }
+
+  .track-image {
+    width: 30vmin;
+    height: 46vmin;
+    object-fit: cover;
+    object-position: 100% 50%;
+    user-select: none;
+    pointer-events: none; /* important: dragging should drag the track, not the image */
+    border-radius: 1.25rem;
+    border: 1px solid rgba(74, 222, 128, 0.12); /* green-400-ish, subtle */
+  }
 }
 
