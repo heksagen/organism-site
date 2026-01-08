@@ -5,13 +5,17 @@
     <a href="{{ route('home') }}" class="text-sm link">← Back to Home</a>
 
     <header class="mt-4">
-        <h1 class="text-3xl font-bold text-cyan-300">{{ $species->common_name }}</h1>
+        <h1 data-portal class="reveal-portal text-3xl font-bold text-cyan-300" style="--reveal-delay: 0ms">
+            <span>{{ $species->common_name }}</span>
+        </h1>
 
         @if($species->scientific_name)
-            <p class="text-lg muted italic">{{ $species->scientific_name }}</p>
+            <p data-reveal class="reveal-pop text-lg muted italic" style="--reveal-delay: 120ms">
+                {{ $species->scientific_name }}
+            </p>
         @endif
 
-                @if($species->hero_image)
+        @if($species->hero_image)
             @php
                 $rawHero = $species->hero_image;
                 $heroPath = null;
@@ -50,7 +54,11 @@
             @endphp
 
             @if($heroSrc)
-                <div class="mt-6 rounded-xl overflow-hidden border border-green-400/10">
+                <div
+                    data-reveal
+                    class="reveal-pop mt-6 rounded-xl overflow-hidden border border-green-400/10"
+                    style="--reveal-delay: 220ms"
+                >
                     <img
                         src="{{ $heroSrc }}"
                         alt="{{ $species->common_name }}"
@@ -60,55 +68,54 @@
             @endif
         @endif
 
-@php
-    $italicizeScientificName = function (?string $text) use ($species): string {
-        if ($text === null || $text === '') return '';
+        @php
+            $italicizeScientificName = function (?string $text) use ($species): string {
+                if ($text === null || $text === '') return '';
 
-        $sci = trim((string) ($species->scientific_name ?? ''));
-        // Always escape the full text first (prevents HTML injection)
-        $escapedText = e($text);
+                $sci = trim((string) ($species->scientific_name ?? ''));
+                // Always escape the full text first (prevents HTML injection)
+                $escapedText = e($text);
 
-        if ($sci === '') {
-            return $escapedText;
-        }
+                if ($sci === '') {
+                    return $escapedText;
+                }
 
-        $escapedSci = e($sci);
+                $escapedSci = e($sci);
 
-        // Replace the *escaped* scientific name with an italic HTML tag
-        // so only that exact name becomes italic, everything else stays normal.
-        return str_replace($escapedSci, '<em>' . $escapedSci . '</em>', $escapedText);
-    };
-@endphp
+                // Replace the *escaped* scientific name with an italic HTML tag
+                // so only that exact name becomes italic, everything else stays normal.
+                return str_replace($escapedSci, '<em>' . $escapedSci . '</em>', $escapedText);
+            };
+        @endphp
 
-@php
-    $italicizeOutsideParentheses = function (?string $text): string {
-        if ($text === null) return '—';
+        @php
+            $italicizeOutsideParentheses = function (?string $text): string {
+                if ($text === null) return '—';
 
-        $text = trim($text);
-        if ($text === '') return '—';
+                $text = trim($text);
+                if ($text === '') return '—';
 
-        $pos = mb_strpos($text, '(');
+                $pos = mb_strpos($text, '(');
 
-        // No parentheses → italicize whole text
-        if ($pos === false) {
-            return '<em>' . e($text) . '</em>';
-        }
+                // No parentheses → italicize whole text
+                if ($pos === false) {
+                    return '<em>' . e($text) . '</em>';
+                }
 
-        // Split: left part italic, right part normal
-        $left  = trim(mb_substr($text, 0, $pos));
-        $right = trim(mb_substr($text, $pos)); // includes "(" ... ")"
+                // Split: left part italic, right part normal
+                $left  = trim(mb_substr($text, 0, $pos));
+                $right = trim(mb_substr($text, $pos)); // includes "(" ... ")"
 
-        return '<em>' . e($left) . '</em> ' . e($right);
-    };
-@endphp
-
-
+                return '<em>' . e($left) . '</em> ' . e($right);
+            };
+        @endphp
 
         @if($species->short_intro)
-            <p class="mt-6 text-green-50/90 leading-relaxed">{{ $species->short_intro }}</p>
+            <p data-reveal class="reveal-pop mt-6 text-green-50/90 leading-relaxed" style="--reveal-delay: 320ms">
+                {{ $species->short_intro }}
+            </p>
         @endif
     </header>
-
 
     @php
         // Exclude old taxonomy section if it exists in sections table
@@ -146,7 +153,7 @@
 
     {{-- Quick jump links --}}
     @if($sections->count() || $hasTaxonomy)
-        <nav class="mt-8 p-5 card rounded-2xl">
+        <nav data-reveal class="reveal-pop mt-8 p-5 card rounded-2xl" style="--reveal-delay: 0ms">
             <div class="font-semibold mb-2 text-green-100">On this page</div>
 
             <div class="flex flex-wrap gap-2 text-sm">
@@ -189,39 +196,38 @@
             @endphp
 
             <section id="taxonomy" class="scroll-mt-24">
-                <h2 class="text-2xl font-semibold mb-3 text-cyan-300">▶ Taxonomic Classification</h2>
+                <h2 data-portal class="reveal-portal text-2xl font-semibold mb-3 text-cyan-300">
+                    <span>▶ Taxonomic Classification</span>
+                </h2>
 
-                <div class="overflow-x-auto">
+                <div data-reveal class="reveal-pop overflow-x-auto" style="--reveal-delay: 120ms">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr>
-    <th
-        class="text-black font-bold text-center border-4 border-black px-4 py-3"
-        style="background-color:#7CFF4F;"
-    >
-        Rank
-    </th>
+                                <th
+                                    class="text-black font-bold text-center border-4 border-black px-4 py-3"
+                                    style="background-color:#7CFF4F;"
+                                >
+                                    Rank
+                                </th>
 
-    <th
-        class="text-black font-bold text-center border-4 border-black px-4 py-3"
-        style="background-color:#7CFF4F;"
-    >
-        Scientific Name
-    </th>
-</tr>
-
+                                <th
+                                    class="text-black font-bold text-center border-4 border-black px-4 py-3"
+                                    style="background-color:#7CFF4F;"
+                                >
+                                    Scientific Name
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach($rows as $label => $key)
                                 <tr class="transition hover:bg-gray-100">
                                     <td class="bg-white text-black font-semibold text-center border-4 border-black px-4 py-3">
-    {{ $label }}
-</td>
+                                        {{ $label }}
+                                    </td>
                                     <td class="bg-white text-black border-4 border-black px-4 py-3">
-        {!! $italicizeOutsideParentheses($tax[$key] ?? null) !!}
-
-</td>
-
+                                        {!! $italicizeOutsideParentheses($tax[$key] ?? null) !!}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -233,14 +239,16 @@
         {{-- Sections --}}
         @foreach($sections as $section)
             <section id="section-{{ $section->key }}" class="scroll-mt-24">
-                <h2 class="text-2xl font-semibold mb-3 text-cyan-300">▶ {{ $section->title }}</h2>
+                <h2 data-portal class="reveal-portal text-2xl font-semibold mb-3 text-cyan-300">
+                    <span>▶ {{ $section->title }}</span>
+                </h2>
 
                 @if($section->content)
-                    <div class="prose prose-invert max-w-none text-green-50/90 leading-relaxed">
+                    <div data-reveal class="reveal-pop prose prose-invert max-w-none text-green-50/90 leading-relaxed" style="--reveal-delay: 120ms">
                         {!! nl2br($italicizeScientificName($section->content)) !!}
                     </div>
                 @else
-                    <p class="muted italic">No content yet.</p>
+                    <p data-reveal class="reveal-pop muted italic" style="--reveal-delay: 120ms">No content yet.</p>
                 @endif
 
                 {{-- ✅ Section-specific images (client request) --}}
@@ -249,7 +257,7 @@
                 @endphp
 
                 @if($inlineImages->count())
-                    <div class="mt-6 grid sm:grid-cols-2 gap-4">
+                    <div data-reveal class="reveal-pop mt-6 grid sm:grid-cols-2 gap-4" style="--reveal-delay: 220ms">
                         @foreach($inlineImages as $img)
                             @php
                                 $src = $resolveImageSrc($img->image_path ?? '');
@@ -258,14 +266,13 @@
                             <figure class="rounded-2xl overflow-hidden border border-green-400/10 bg-green-950/25">
                                 @if($src)
                                     <img
-    src="{{ str_starts_with($img->image_path ?? '', 'http')
-        ? ($img->image_path ?? '')
-        : asset('storage/' . ltrim(($img->image_path ?? ''), '/')) }}"
-    alt="{{ $img->caption ?? 'Species image' }}"
-    class="w-full h-56 object-cover"
-    loading="lazy"
-/>
-
+                                        src="{{ str_starts_with($img->image_path ?? '', 'http')
+                                            ? ($img->image_path ?? '')
+                                            : asset('storage/' . ltrim(($img->image_path ?? ''), '/')) }}"
+                                        alt="{{ $img->caption ?? 'Species image' }}"
+                                        class="w-full h-56 object-cover"
+                                        loading="lazy"
+                                    />
                                 @endif
 
                                 @if($img->caption || $img->credit)
@@ -287,10 +294,12 @@
 
         {{-- Images gallery (separate section) --}}
         <section id="images" class="scroll-mt-24">
-            <h2 class="text-2xl font-semibold mb-3 text-cyan-300">▶ Images / Illustrations / Diagrams</h2>
+            <h2 data-portal class="reveal-portal text-2xl font-semibold mb-3 text-cyan-300">
+                <span>▶ Images / Illustrations / Diagrams</span>
+            </h2>
 
             @if($galleryImages->count())
-                <div class="grid sm:grid-cols-2 gap-4">
+                <div data-reveal class="reveal-pop grid sm:grid-cols-2 gap-4" style="--reveal-delay: 120ms">
                     @foreach($galleryImages as $img)
                         @php
                             $src = $resolveImageSrc($img->image_path ?? '');
@@ -299,14 +308,13 @@
                         <figure class="rounded-2xl overflow-hidden border border-green-400/10 bg-green-950/25">
                             @if($src)
                                 <img
-    src="{{ str_starts_with($img->image_path ?? '', 'http')
-        ? ($img->image_path ?? '')
-        : asset('storage/' . ltrim(($img->image_path ?? ''), '/')) }}"
-    alt="{{ $img->caption ?? 'Species image' }}"
-    class="w-full h-56 object-cover"
-    loading="lazy"
-/>
-
+                                    src="{{ str_starts_with($img->image_path ?? '', 'http')
+                                        ? ($img->image_path ?? '')
+                                        : asset('storage/' . ltrim(($img->image_path ?? ''), '/')) }}"
+                                    alt="{{ $img->caption ?? 'Species image' }}"
+                                    class="w-full h-56 object-cover"
+                                    loading="lazy"
+                                />
                             @endif
 
                             @if($img->caption || $img->credit)
@@ -323,36 +331,37 @@
                     @endforeach
                 </div>
             @else
-                <p class="muted italic">No images yet.</p>
+                <p data-reveal class="reveal-pop muted italic" style="--reveal-delay: 120ms">No images yet.</p>
             @endif
         </section>
 
         {{-- References --}}
         <section id="refs" class="scroll-mt-24">
-            <h2 class="text-2xl font-semibold mb-3 text-cyan-300">▶ References</h2>
+            <h2 data-portal class="reveal-portal text-2xl font-semibold mb-3 text-cyan-300">
+                <span>▶ References</span>
+            </h2>
 
             @if($species->references->count())
-                <ol class="list-decimal pl-6 space-y-2 text-green-50/90">
+                <ol data-reveal class="reveal-pop list-decimal pl-6 space-y-2 text-green-50/90" style="--reveal-delay: 120ms">
                     @foreach($species->references as $ref)
-    <li class="leading-relaxed">
-        <span>{!! $italicizeScientificName($ref->citation) !!}</span>
+                        <li class="leading-relaxed">
+                            <span>{!! $italicizeScientificName($ref->citation) !!}</span>
 
-        @if(!empty($ref->link))
-            <a
-                href="{{ $ref->link }}"
-                target="_blank"
-                rel="noreferrer"
-                class="ml-2 text-blue-400 hover:text-blue-300 underline text-sm"
-            >
-                View Source
-            </a>
-        @endif
-    </li>
-@endforeach
-
+                            @if(!empty($ref->link))
+                                <a
+                                    href="{{ $ref->link }}"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    class="ml-2 text-blue-400 hover:text-blue-300 underline text-sm"
+                                >
+                                    View Source
+                                </a>
+                            @endif
+                        </li>
+                    @endforeach
                 </ol>
             @else
-                <p class="muted italic">No references yet.</p>
+                <p data-reveal class="reveal-pop muted italic" style="--reveal-delay: 120ms">No references yet.</p>
             @endif
         </section>
 

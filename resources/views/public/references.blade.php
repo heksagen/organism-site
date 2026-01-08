@@ -2,12 +2,18 @@
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 py-10">
-    <h1 class="text-3xl font-bold">References</h1>
-    <p class="muted mt-2">Grouped by species.</p>
+    <h1 data-portal class="reveal-portal text-3xl font-bold" style="--reveal-delay: 0ms">
+    <span>References</span>
+</h1>
+
+<p data-reveal class="reveal-pop muted mt-2" style="--reveal-delay: 120ms">
+    Grouped by species.
+</p>
+
 
     <div class="mt-10 space-y-10">
         @foreach($species as $sp)
-            <section class="card rounded-2xl p-5">
+            <section data-reveal class="reveal-pop card rounded-2xl p-5">
                 <h2 class="text-xl font-semibold">
                     <a href="{{ route('species.show', $sp->slug) }}" class="hover:underline">
                         {{ $sp->common_name }}

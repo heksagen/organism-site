@@ -9,3 +9,74 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+@layer base {
+  html, body {
+    @apply bg-gradient-to-br from-green-950 via-emerald-900 to-green-900;
+  }
+}
+@layer components {
+
+  /* ---------- OLD POP / BLUR EFFECT (KEEP) ---------- */
+  .reveal-pop {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    filter: blur(6px);
+    transition:
+      transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity, filter;
+  }
+
+  .reveal-pop.is-revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  .reveal-pop[data-delay] {
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* ---------- NEW PORTAL / SLOT EFFECT (ADD) ---------- */
+  .reveal-portal {
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .reveal-portal > span {
+    display: inline-block;
+    transform: translateY(120%);
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: transform;
+  }
+
+  .reveal-portal.is-revealed > span {
+    transform: translateY(0);
+  }
+/* Per-line portal reveal (closest to the video) */
+.portal-lines {
+  display: inline-block;
+}
+
+.portal-line {
+  overflow: hidden;          /* the "slot" */
+  display: block;            /* each line gets its own mask */
+  line-height: 1.05;         /* tighter slit feel; tweak if needed */
+}
+
+.portal-line > span {
+  display: inline-block;
+  transform: translateY(120%);
+  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform;
+}
+
+.portal-lines.is-revealed .portal-line > span {
+  transform: translateY(0);
+}
+
+}
+
